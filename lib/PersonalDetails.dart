@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:naac_accreditation_portal/services/auth.dart';
 import 'components/custombutton.dart';
 import 'progressindicator.dart';
 
@@ -16,6 +17,8 @@ class _UserDetailsState extends State<UserDetails> {
   final _emailTextController = TextEditingController();
   final _dobTextController = TextEditingController();
   final _deptTextController = TextEditingController();
+
+  final AuthServices _auth = AuthServices();
 
   double _formProgress = 0;
 
@@ -40,7 +43,9 @@ class _UserDetailsState extends State<UserDetails> {
     });
   }
 
-  void updateDB() {}
+  void updateDB() {
+    _auth.signOut();
+  }
 
   @override
   Widget build(BuildContext context) {

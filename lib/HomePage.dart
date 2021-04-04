@@ -1,15 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:naac_accreditation_portal/nav-bar.dart';
+import 'package:naac_accreditation_portal/public/shared.dart';
+import 'package:naac_accreditation_portal/services/auth.dart';
 import 'PersonalDetails.dart';
 import 'other%20details.dart';
 
 class HomePage extends StatelessWidget {
+  final AuthServices _auth = AuthServices();
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DefaultTabController(
+    return Scaffold(
+      body: DefaultTabController(
         length: 2,
         child: Scaffold(
+          drawer: Navbar(),
           appBar: AppBar(
+            title: Text('NAAC-ACCREDITIATION PORTAL'),
+            actions: [
+              IconButton(
+                  icon: Icon(Icons.logout),
+                  onPressed: () async {
+                    _auth.signOut();
+                  })
+            ],
             bottom: TabBar(
               tabs: [
                 Tab(
@@ -24,23 +37,16 @@ class HomePage extends StatelessWidget {
           backgroundColor: Colors.grey[200],
           body: TabBarView(
             children: [
-              Center(
+              /* Center(
                 child: SizedBox(
                   width: 400,
                   child: Card(
                     child: UserDetails(),
                   ),
                 ),
-              ),
+              ), */
+              customform(UserDetails()),
               DynamicScreen(),
-              // Center(
-              //   child: SizedBox(
-              //     width: 400,
-              //     child: Card(
-              //       child: OtherDetails(),
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ),
