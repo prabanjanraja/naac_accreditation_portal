@@ -4,6 +4,7 @@ Padding textInputField(controller, hint, {password = false}) {
   return Padding(
     padding: EdgeInsets.all(8.0),
     child: TextFormField(
+      readOnly: false,
       obscureText: password,
       validator: (value) {
         if (value.isEmpty) {

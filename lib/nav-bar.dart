@@ -18,7 +18,9 @@ class Navbar extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.table_view),
             title: Text('View records'),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushNamed('/view');
+            },
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.end,

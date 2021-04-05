@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:naac_accreditation_portal/screens/staffDetails.dart';
 import 'package:naac_accreditation_portal/services/auth.dart';
 import 'package:naac_accreditation_portal/wrapper.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,7 @@ class SignUpApp extends StatelessWidget {
               initialData: null,
               child: Wrapper(),
             ),
+        '/view': (context) => DetailsView(),
         '/signin': (context) => SignUpScreen(),
         '/welcome': (context) => HomePage(),
       },
