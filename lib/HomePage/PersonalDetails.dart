@@ -1,12 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:naac_accreditation_portal/models/User.dart';
-import 'package:naac_accreditation_portal/services/database.dart';
 import 'package:provider/provider.dart';
-import 'components/custombutton.dart';
-import 'progressindicator.dart';
+import '../components/custombutton.dart';
+import '../progressindicator.dart';
 
-import 'components/inputfield.dart';
+import '../components/inputfield.dart';
 
 class UserDetails extends StatefulWidget {
   @override
@@ -17,11 +15,11 @@ class _UserDetailsState extends State<UserDetails> {
   // final CustomUser user;
   String name;
   final _formKey = GlobalKey<FormState>();
-  final _firstnameTextController = TextEditingController();
-  final _lastnameTextController = TextEditingController();
-  final _emailTextController = TextEditingController();
-  final _dobTextController = TextEditingController();
-  final _deptTextController = TextEditingController();
+  String _firstname = '';
+  String _lastname = '';
+  String _email = '';
+  String _dob = '';
+  String _dept = '';
 
   double _formProgress = 0;
 
@@ -31,15 +29,15 @@ class _UserDetailsState extends State<UserDetails> {
     var progress = 0.0;
     // var controllers = [_firstnameTextController];
     var controllers = [
-      _firstnameTextController,
-      _lastnameTextController,
-      _emailTextController,
-      _dobTextController,
-      _deptTextController
+      _firstname,
+      _lastname,
+      _email,
+      _dob,
+      _dept,
     ];
 
     for (var controller in controllers) {
-      if (controller.value.text.isNotEmpty) {
+      if (controller.isNotEmpty) {
         progress += 1 / controllers.length;
       }
     }
@@ -50,7 +48,7 @@ class _UserDetailsState extends State<UserDetails> {
   }
 
   updateDB(CustomUser user) {
-    final String name = _firstnameTextController.text;
+    final String name = _firstname;
     user.name = name;
   }
 
@@ -63,7 +61,7 @@ class _UserDetailsState extends State<UserDetails> {
     // _firstnameTextController.text = name;
     // _firstnameTextController.value = name as TextEditingValue;
 
-    print('user id in personal delails is' + _firstnameTextController.text);
+    print('user id in personal delails is' + _firstname);
     // final userrecord = DataBaseService(_user.uid);
     return Form(
       key: _formKey,
@@ -74,23 +72,23 @@ class _UserDetailsState extends State<UserDetails> {
           AnimatedProgressIndicator(value: _formProgress),
           Text('User Details', style: Theme.of(context).textTheme.headline4),
           textInputField(
-            _firstnameTextController,
+            _firstname,
             'First Name',
           ),
           textInputField(
-            _lastnameTextController,
+            _lastname,
             'Last Name',
           ),
           textInputField(
-            _emailTextController,
+            _email,
             'Email ID',
           ),
           textInputField(
-            _dobTextController,
+            _dob,
             'DOB',
           ),
           textInputField(
-            _deptTextController,
+            _dept,
             'Department',
           ),
           customButton(

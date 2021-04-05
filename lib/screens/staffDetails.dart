@@ -4,10 +4,13 @@ import 'package:naac_accreditation_portal/public/data.dart';
 class DetailsView extends StatelessWidget {
   final tiles = staffDetails.map(
     (e) => ListTile(
-        title: Text(
-      e,
-      style: biggerFont,
-    )),
+      title: Center(
+        child: Text(
+          e,
+          style: biggerFont,
+        ),
+      ),
+    ),
   );
 
   @override
@@ -20,7 +23,10 @@ class DetailsView extends StatelessWidget {
       appBar: AppBar(
         title: Text('Staff Details'),
       ),
-      body: ListView(children: divided),
+      body: ListView(
+        children: divided,
+        padding: EdgeInsets.all(16.0),
+      ),
     );
   }
 }

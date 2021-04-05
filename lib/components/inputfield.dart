@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Padding textInputField(controller, hint, {password = false}) {
+Padding textInputField(variable, hint, {password = false, Function fun}) {
   return Padding(
     padding: EdgeInsets.all(8.0),
     child: TextFormField(
@@ -12,10 +12,13 @@ Padding textInputField(controller, hint, {password = false}) {
         }
         return null;
       },
-      controller: controller,
+      initialValue: variable,
+      onChanged: fun,
       decoration: InputDecoration(
         hintText: hint,
       ),
     ),
   );
 }
+
+// const 

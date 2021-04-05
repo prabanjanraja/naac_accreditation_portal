@@ -3,7 +3,7 @@ import 'package:naac_accreditation_portal/nav-bar.dart';
 import 'package:naac_accreditation_portal/public/shared.dart';
 import 'package:naac_accreditation_portal/services/auth.dart';
 import 'PersonalDetails.dart';
-import 'other%20details.dart';
+import 'other details.dart';
 
 class HomePage extends StatelessWidget {
   final AuthServices _auth = AuthServices();
