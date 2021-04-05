@@ -30,27 +30,8 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey[200],
-        body:
-            SignInForm() /* Center(
-        child: SizedBox(
-          width: 400,
-          child: Card(
-            child: SignInForm(),
-          ),
-        ),
-      ), */
-        );
-  }
-}
-
-class WelcomeScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text('Welcome!', style: Theme.of(context).textTheme.headline2),
-      ),
+      backgroundColor: Colors.grey[200],
+      body: SignInForm(),
     );
   }
 }

@@ -6,12 +6,23 @@ class AuthServices {
 
   //  create custom user model from firebase user object
   CustomUser _userFromFirebase(User input) {
-    return input != null ? CustomUser(uid: input.uid) : null;
+    return CustomUser(
+      uid: input.uid,
+      name: '',
+    );
+    /* input != null
+        ? CustomUser(
+            uid: input.uid,
+            name: '',
+          )
+        : null; */
   }
 
   // stream to return uid if user login or null if user logout
   Stream<CustomUser> get userstream {
-    return _auth.authStateChanges().map((event) => _userFromFirebase(event));
+    return _auth
+        .authStateChanges()
+        .map((event) => event != null ? _userFromFirebase(event) : null);
   }
 
   // Signin anonymously
@@ -26,7 +37,7 @@ class AuthServices {
     }
   }
 
-  //TODO: Sigin with email and password
+  //Sigin with email and password
   Future<CustomUser> signIn(email, password) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(
@@ -40,7 +51,7 @@ class AuthServices {
     }
   }
 
-  //TODO: Register with email and password
+  // Register with email and password
   //Signout
   Future signOut() async {
     try {
