@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:naac_accreditation_portal/models/User.dart';
+import 'package:naac_accreditation_portal/services/database.dart';
 import 'package:provider/provider.dart';
 import '../components/custombutton.dart';
 import '../progressindicator.dart';
@@ -13,7 +14,7 @@ class UserDetails extends StatefulWidget {
 
 class _UserDetailsState extends State<UserDetails> {
   // final CustomUser user;
-  String name;
+  bool isloading = true;
   final _formKey = GlobalKey<FormState>();
   String _firstname = '';
   String _lastname = '';
@@ -26,9 +27,8 @@ class _UserDetailsState extends State<UserDetails> {
   // final dbservice = DataBaseService();
 
   void updateformProgress() {
-    var progress = 0.0;
-    // var controllers = [_firstnameTextController];
-    var controllers = [
+    double progress = 0.0;
+    List<String> controllers = [
       _firstname,
       _lastname,
       _email,
@@ -36,33 +36,49 @@ class _UserDetailsState extends State<UserDetails> {
       _dept,
     ];
 
-    for (var controller in controllers) {
-      if (controller.isNotEmpty) {
+    for (String controller in controllers) {
+      if (controller != '') {
         progress += 1 / controllers.length;
       }
     }
 
-    setState(() {
-      _formProgress = progress;
-    });
-  }
-
-  updateDB(CustomUser user) {
-    final String name = _firstname;
-    user.name = name;
+    setState(
+      () {
+        _formProgress = progress;
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<CustomUser>(context);
+    final user_ = Provider.of<CustomUser>(context);
+    final user = PersonalDetails(user_.uid);
 
-    name = user.uid;
+    final DataBaseService _dbservice = DataBaseService(user.uid);
 
-    // _firstnameTextController.text = name;
-    // _firstnameTextController.value = name as TextEditingValue;
+    updateDB() {
+      // isloading = true;
+      print('updateDB fun call');
+      user.firstname = _firstname;
+      user.lastname = _lastname;
+      user.dept = _dept;
+      user.email = _email;
+      user.dob = _dob;
+      _dbservice.update(user);
+      setState(
+        () {
+          isloading = true;
+        },
+      );
+    }
 
-    print('user id in personal delails is' + _firstname);
-    // final userrecord = DataBaseService(_user.uid);
+    ;
+
+    if (isloading) {
+      _firstname = user.firstname;
+      _lastname = '';
+      isloading = false;
+    }
     return Form(
       key: _formKey,
       onChanged: updateformProgress,
@@ -74,22 +90,57 @@ class _UserDetailsState extends State<UserDetails> {
           textInputField(
             _firstname,
             'First Name',
+            fun: (val) {
+              setState(
+                () {
+                  _firstname = val;
+                },
+              );
+            },
           ),
           textInputField(
             _lastname,
             'Last Name',
+            fun: (val) {
+              setState(
+                () {
+                  _lastname = val;
+                },
+              );
+            },
           ),
           textInputField(
             _email,
             'Email ID',
+            fun: (val) {
+              setState(
+                () {
+                  _email = val;
+                },
+              );
+            },
           ),
           textInputField(
             _dob,
             'DOB',
+            fun: (val) {
+              setState(
+                () {
+                  _dob = val;
+                },
+              );
+            },
           ),
           textInputField(
             _dept,
             'Department',
+            fun: (val) {
+              setState(
+                () {
+                  _dept = val;
+                },
+              );
+            },
           ),
           customButton(
             'update',

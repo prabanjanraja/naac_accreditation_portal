@@ -78,7 +78,6 @@ class _SignInFormState extends State<SignInForm> {
                   AnimatedProgressIndicator(value: _formProgress),
                   Text('Sign In', style: Theme.of(context).textTheme.headline4),
                   textInputField(email, 'User Name', fun: (val) {
-                    print(val);
                     setState(() {
                       email = val;
                     });
@@ -88,7 +87,6 @@ class _SignInFormState extends State<SignInForm> {
                     'Password',
                     password: true,
                     fun: (val) {
-                      print(val);
                       setState(() {
                         password = val;
                       });

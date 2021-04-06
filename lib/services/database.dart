@@ -9,9 +9,22 @@ class DataBaseService {
 
   DataBaseService(this.uid);
 
-  Future update(CustomUser user) async {
-    await datastore.doc(uid).update({
-      'name': user.name,
-    });
+  Future update(PersonalDetails user) async {
+    // // await datastore.doc(uid).update({
+    //   'user id': user.uid,
+    //   'name': user.name,
+    // });
+    print('update on database');
+    await datastore.doc(uid).set(
+      {
+        // 'user id': user.uid,
+        'first name': user.firstname,
+        'last name': user.lastname,
+        'email': user.email,
+        'date of birth': user.dob,
+        'department': user.dept,
+      },
+      SetOptions(merge: true),
+    );
   }
 }
