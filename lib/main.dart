@@ -5,7 +5,7 @@ import 'package:naac_accreditation_portal/services/auth.dart';
 import 'package:naac_accreditation_portal/wrapper.dart';
 import 'package:provider/provider.dart';
 
-import 'HomePage.dart';
+import 'HomePage/HomePage.dart';
 import 'signin.dart';
 
 void main() => runApp(SignUpApp());

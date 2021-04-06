@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'Academic.dart';
+import '../Academic.dart';
 
 class OtherDetails extends StatelessWidget {
   @override

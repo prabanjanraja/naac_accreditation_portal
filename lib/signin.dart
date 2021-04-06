@@ -17,8 +17,6 @@ class _SignInFormState extends State<SignInForm> {
   bool isLoading = false;
 
   String email = '', password = '', error = '';
-  final _passwordTextController = TextEditingController();
-  final _usernameTextController = TextEditingController();
 
   AuthServices _auth = AuthServices();
 
@@ -27,12 +25,12 @@ class _SignInFormState extends State<SignInForm> {
   void updateformProgress() {
     var progress = 0.0;
     var controllers = [
-      _usernameTextController,
-      _passwordTextController,
+      email,
+      password,
     ];
 
     for (var controller in controllers) {
-      if (controller.value.text.isNotEmpty) {
+      if (controller != '') {
         progress += 1 / controllers.length;
       }
     }
@@ -43,8 +41,6 @@ class _SignInFormState extends State<SignInForm> {
   }
 
   void _validate() async {
-    email = _usernameTextController.text;
-    password = _passwordTextController.text;
     setState(() {
       isLoading = true;
     });
@@ -56,8 +52,6 @@ class _SignInFormState extends State<SignInForm> {
       print(password);
       // _showHomeScreen();
     } else {
-      _usernameTextController.clear();
-      _passwordTextController.clear();
       setState(() {
         isLoading = false;
         error = 'Invalid Credentials, Try again';
@@ -83,10 +77,26 @@ class _SignInFormState extends State<SignInForm> {
                 children: [
                   AnimatedProgressIndicator(value: _formProgress),
                   Text('Sign In', style: Theme.of(context).textTheme.headline4),
-                  textInputField(_usernameTextController, 'User Name'),
-                  textInputField(_passwordTextController, 'Password',
-                      password: true),
-                  customButton('Sign In', _formProgress, _validate),
+                  textInputField(email, 'User Name', fun: (val) {
+                    setState(() {
+                      email = val;
+                    });
+                  }),
+                  textInputField(
+                    password,
+                    'Password',
+                    password: true,
+                    fun: (val) {
+                      setState(() {
+                        password = val;
+                      });
+                    },
+                  ),
+                  customButton(
+                    'Sign In',
+                    _formProgress,
+                    _validate,
+                  ),
                   Text(
                     error,
                     style: TextStyle(

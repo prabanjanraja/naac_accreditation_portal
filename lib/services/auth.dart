@@ -8,7 +8,7 @@ class AuthServices {
   CustomUser _userFromFirebase(User input) {
     return CustomUser(
       uid: input.uid,
-      name: '',
+      name: ' ',
     );
     /* input != null
         ? CustomUser(
