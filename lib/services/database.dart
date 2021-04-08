@@ -26,9 +26,7 @@ class DataBaseService {
   }
 
   Future<void> addExperienceToDB({StaffExperience experience}) async {
-    print('Add staff Experience');
-
-    await datastore.doc(uid).collection('experience').doc().set(
+    await datastore.doc(uid).collection('experience').add(
       {
         'Org Name': experience.orgName,
         'Designation': experience.designation,
@@ -36,8 +34,25 @@ class DataBaseService {
         'To Date': experience.toDate,
         'total experience': experience.totalExperience,
       },
-      SetOptions(merge: true),
     );
+  }
+
+  Stream<List<StaffExperience>> get loadExperience {
+    return datastore
+        .doc(uid)
+        .collection('experience')
+        .snapshots()
+        .map(_experienceFromSnapshot);
+  }
+
+  static List<StaffExperience> _experienceFromSnapshot(QuerySnapshot event) {
+    return event.docs
+        .map(
+          (e) => StaffExperience.fromSnapShots(
+            e,
+          ),
+        )
+        .toList();
   }
 }
 

@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class StaffExperience {
   String orgName;
   String fromDate;
@@ -14,4 +16,12 @@ class StaffExperience {
     this.totalExperience,
     this.designation,
   });
+
+  StaffExperience.fromSnapShots(DocumentSnapshot snapshot)
+      : assert(snapshot != null),
+        orgName = snapshot.data()['Org Name'],
+        fromDate = snapshot.data()['From Date'],
+        toDate = snapshot.data()['To Date'],
+        designation = snapshot.data()['Designation'],
+        totalExperience = snapshot.data()['total experience'];
 }

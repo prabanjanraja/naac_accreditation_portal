@@ -54,7 +54,7 @@ class _UserDetailsState extends State<UserDetails> {
     currentUser = Provider.of<CustomUser>(context);
     final user = PersonalDetails(currentUser.uid);
 
-    userDataBase = DataBaseService(user.uid);
+    userDataBase = DataBaseService(currentUser.uid);
 
     updateDB() {
       // isloading = true;

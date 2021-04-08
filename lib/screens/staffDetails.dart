@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:naac_accreditation_portal/public/data.dart';
+import 'package:naac_accreditation_portal/services/database.dart';
+import 'package:provider/provider.dart';
 
 class DetailsView extends StatelessWidget {
   @override
@@ -15,14 +17,24 @@ class DetailsView extends StatelessWidget {
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute<void>(
-              builder: (BuildContext context) {
+              builder: (context) => StreamProvider.value(
+                value: DataBaseService(currentUser.uid).loadExperience,
+                initialData: null,
+                child: Scaffold(
+                  appBar: AppBar(
+                    title: Text(e),
+                  ),
+                  body: staffDetails[e],
+                ),
+              ),
+/*               (BuildContext context) {
                 return Scaffold(
                   appBar: AppBar(
                     title: Text(e),
                   ),
                   body: staffDetails[e],
                 );
-              },
+              }, */
             ),
           );
         },
