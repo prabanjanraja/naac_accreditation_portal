@@ -1,0 +1,3 @@
+class AcademicDetailsModel {
+  String name;
+}

@@ -51,10 +51,10 @@ class _UserDetailsState extends State<UserDetails> {
 
   @override
   Widget build(BuildContext context) {
-    final user_ = Provider.of<CustomUser>(context);
-    final user = PersonalDetails(user_.uid);
+    currentUser = Provider.of<CustomUser>(context);
+    final user = PersonalDetails(currentUser.uid);
 
-    final DataBaseService _dbservice = DataBaseService(user.uid);
+    userDataBase = DataBaseService(user.uid);
 
     updateDB() {
       // isloading = true;
@@ -64,15 +64,13 @@ class _UserDetailsState extends State<UserDetails> {
       user.dept = _dept;
       user.email = _email;
       user.dob = _dob;
-      _dbservice.update(user);
+      userDataBase.update(user);
       setState(
         () {
           isloading = true;
         },
       );
     }
-
-    ;
 
     if (isloading) {
       _firstname = user.firstname;
