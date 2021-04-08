@@ -30,32 +30,36 @@ class _StaffExperienceListState extends State<StaffExperienceList> {
           isloading = false;
         },
       );
-    final tiles = experienceList.map(
-      (StaffExperience experience) => ListTile(
-        title: Center(
-          child: Text(
-            experience.orgName,
-            style: biggerFont,
-          ),
-        ),
-        subtitle: Text(
-          'Duration: ' +
-              experience.fromDate +
-              ' - ' +
-              experience.toDate +
-              ' as ' +
-              experience.designation,
-        ),
-        trailing: Icon(
-          Icons.delete,
-        ),
-      ),
-    );
+    final tiles = isloading
+        ? null
+        : experienceList.map(
+            (StaffExperience experience) => ListTile(
+              title: Center(
+                child: Text(
+                  experience.orgName,
+                  style: biggerFont,
+                ),
+              ),
+              subtitle: Text(
+                'Duration: ' +
+                    experience.fromDate +
+                    ' - ' +
+                    experience.toDate +
+                    ' as ' +
+                    experience.designation,
+              ),
+              trailing: Icon(
+                Icons.delete,
+              ),
+            ),
+          );
 
-    final divided = ListTile.divideTiles(
-      context: context,
-      tiles: tiles,
-    ).toList();
+    final divided = isloading
+        ? null
+        : ListTile.divideTiles(
+            context: context,
+            tiles: tiles,
+          ).toList();
 
     return isloading
         ? Loading()

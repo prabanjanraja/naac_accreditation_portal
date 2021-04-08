@@ -10,8 +10,7 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<CustomUser>(context);
     currentUser = user;
-    userDataBase = DataBaseService(currentUser.uid);
-    print(user);
+    userDataBase = DataBaseService(currentUser?.uid);
     return user != null ? HomePage() : SignUpScreen();
   }
 }
