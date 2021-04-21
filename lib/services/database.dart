@@ -37,6 +37,11 @@ class DataBaseService {
     );
   }
 
+  Future<void> deleteExperienceFromDB({String id}) async {
+    print('Delete fun called');
+    await datastore.doc(uid).collection('experience').doc(id).delete();
+  }
+
   Stream<List<StaffExperience>> get loadExperience {
     return datastore
         .doc(uid)

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:naac_accreditation_portal/public/data.dart';
+import 'package:naac_accreditation_portal/public/shared.dart';
 import 'package:naac_accreditation_portal/screens/staff_experience/add_experience.dart';
 import 'package:naac_accreditation_portal/screens/staff_experience/staff_experience.dart';
 import 'package:naac_accreditation_portal/services/database.dart';
@@ -48,8 +49,11 @@ class _StaffExperienceListState extends State<StaffExperienceList> {
                     ' as ' +
                     experience.designation,
               ),
-              trailing: Icon(
-                Icons.delete,
+              trailing: IconButton(
+                icon: Icon(Icons.delete_forever),
+                onPressed: () {
+                  onDeletePressed(experience.id);
+                },
               ),
             ),
           );
@@ -73,12 +77,12 @@ class _StaffExperienceListState extends State<StaffExperienceList> {
                 Icons.add_circle_rounded,
                 size: 50.0,
               ),
-              onPressed: onAddExperence,
+              onPressed: onAddExperience,
             ),
           );
   }
 
-  Future<void> onAddExperence() async {
+  Future<void> onAddExperience() async {
     final StaffExperience exp = await showDialog<StaffExperience>(
       context: context,
       builder: (_) => AddExperience(),
@@ -89,5 +93,14 @@ class _StaffExperienceListState extends State<StaffExperienceList> {
     print(exp);
   }
 
-  onExperiencPressed() {}
+  Future<void> onDeletePressed(String id) async {
+    final bool confirmation = await showDialog<bool>(
+      context: context,
+      builder: (_) => DeleteConfirmation(),
+    );
+    if (confirmation)
+      DataBaseService(currentUser.uid).deleteExperienceFromDB(
+        id: id,
+      );
+  }
 }

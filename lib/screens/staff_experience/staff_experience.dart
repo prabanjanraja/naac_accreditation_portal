@@ -6,6 +6,7 @@ class StaffExperience {
   String toDate;
   String totalExperience;
   String designation;
+  String id;
 
   StaffExperience();
 
@@ -19,6 +20,7 @@ class StaffExperience {
 
   StaffExperience.fromSnapShots(DocumentSnapshot snapshot)
       : assert(snapshot != null),
+        id = snapshot.id,
         orgName = snapshot.data()['Org Name'],
         fromDate = snapshot.data()['From Date'],
         toDate = snapshot.data()['To Date'],
