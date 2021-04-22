@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:naac_accreditation_portal/models/User.dart';
+import 'package:naac_accreditation_portal/screens/Staff_Education/staff_education.dart';
 import 'package:naac_accreditation_portal/screens/staff_experience/staff_experience.dart';
 
 final CollectionReference datastore =
@@ -38,7 +39,6 @@ class DataBaseService {
   }
 
   Future<void> deleteExperienceFromDB({String id}) async {
-    print('Delete fun called');
     await datastore.doc(uid).collection('experience').doc(id).delete();
   }
 
@@ -50,10 +50,28 @@ class DataBaseService {
         .map(_experienceFromSnapshot);
   }
 
+  Stream<List<StaffEducation>> get loadEducation {
+    return datastore
+        .doc(uid)
+        .collection('education')
+        .snapshots()
+        .map(_educationFromSnapshot);
+  }
+
   static List<StaffExperience> _experienceFromSnapshot(QuerySnapshot event) {
     return event.docs
         .map(
           (e) => StaffExperience.fromSnapShots(
+            e,
+          ),
+        )
+        .toList();
+  }
+
+  static List<StaffEducation> _educationFromSnapshot(QuerySnapshot event) {
+    return event.docs
+        .map(
+          (e) => StaffEducation.fromSnapShots(
             e,
           ),
         )
