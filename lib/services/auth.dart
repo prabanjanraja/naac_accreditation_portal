@@ -46,12 +46,23 @@ class AuthServices {
       return _userFromFirebase(_user);
     } catch (e) {
       print(e.toString());
-      print('invalid credentials');
       return null;
     }
   }
 
   // Register with email and password
+  Future registerWithEmailAndPassword(String email, String password) async {
+    try {
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      User _user = result.user;
+      return _userFromFirebase(_user);
+    } catch (error) {
+      print(error.toString());
+      return null;
+    }
+  }
+
   //Signout
   Future signOut() async {
     try {

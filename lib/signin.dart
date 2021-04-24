@@ -97,6 +97,12 @@ class _SignInFormState extends State<SignInForm> {
                     _formProgress,
                     _validate,
                   ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('/signup');
+                    },
+                    child: Text('register for a new user'),
+                  ),
                   Text(
                     error,
                     style: TextStyle(
