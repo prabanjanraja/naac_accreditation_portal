@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:naac_accreditation_portal/services/auth.dart';
 
@@ -6,8 +8,14 @@ class Navbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
+      child: Column(
         children: [
+          Expanded(
+            child: Icon(
+              Icons.person,
+              size: 100.0,
+            ),
+          ),
           ListTile(
             leading: Icon(
               Icons.person,
@@ -21,6 +29,9 @@ class Navbar extends StatelessWidget {
             onTap: () {
               Navigator.of(context).pushNamed('/view');
             },
+          ),
+          Spacer(
+            flex: 3,
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.end,

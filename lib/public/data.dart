@@ -29,6 +29,66 @@ Map<String, MaterialPageRoute> staffDetails = {
       ),
     ),
   ),
+  'Staff Event Organized': MaterialPageRoute<void>(
+    builder: (context) => StreamProvider.value(
+      value: DataBaseService(currentUser.uid).loadEducation,
+      initialData: null,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Staff Event Organized'),
+        ),
+        body: StaffEducationList(),
+      ),
+    ),
+  ),
+  'Staff Event Funded': MaterialPageRoute<void>(
+    builder: (context) => StreamProvider.value(
+      value: DataBaseService(currentUser.uid).loadEducation,
+      initialData: null,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Staff Event Funded'),
+        ),
+        body: StaffEducationList(),
+      ),
+    ),
+  ),
+  'Staff Online Courses': MaterialPageRoute<void>(
+    builder: (context) => StreamProvider.value(
+      value: DataBaseService(currentUser.uid).loadEducation,
+      initialData: null,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Staff Online Courses'),
+        ),
+        body: StaffEducationList(),
+      ),
+    ),
+  ),
+  'Staff Industry Training': MaterialPageRoute<void>(
+    builder: (context) => StreamProvider.value(
+      value: DataBaseService(currentUser.uid).loadEducation,
+      initialData: null,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Staff Industry Training'),
+        ),
+        body: StaffEducationList(),
+      ),
+    ),
+  ),
+  'Staff Journal Publication': MaterialPageRoute<void>(
+    builder: (context) => StreamProvider.value(
+      value: DataBaseService(currentUser.uid).loadEducation,
+      initialData: null,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Staff Journal Publication'),
+        ),
+        body: StaffEducationList(),
+      ),
+    ),
+  ),
 };
 //   'Staff Experience',
 //   'Journal',

@@ -6,6 +6,7 @@ class DetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     final tiles = staffDetails.keys.map(
       (String e) => ListTile(
+        minVerticalPadding: 20.0,
         title: Center(
           child: Text(
             e,

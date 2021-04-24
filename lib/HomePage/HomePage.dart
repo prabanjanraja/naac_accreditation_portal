@@ -37,14 +37,6 @@ class HomePage extends StatelessWidget {
           backgroundColor: Colors.grey[200],
           body: TabBarView(
             children: [
-              /* Center(
-                child: SizedBox(
-                  width: 400,
-                  child: Card(
-                    child: UserDetails(),
-                  ),
-                ),
-              ), */
               customform(UserDetails()),
               DynamicScreen(),
             ],

@@ -16,7 +16,7 @@ Padding textInputField(String variable, hint,
       initialValue: variable,
       onChanged: fun,
       decoration: InputDecoration(
-        hintText: hint,
+        labelText: hint,
       ),
     ),
   );

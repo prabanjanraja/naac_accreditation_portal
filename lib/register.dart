@@ -38,27 +38,6 @@ class _RegisterFormState extends State<RegisterForm> {
     });
   }
 
-  void _validate() async {
-    setState(() {
-      isLoading = true;
-    });
-    var result = await _auth.registerWithEmailAndPassword(
-      email,
-      password,
-    );
-    if (result != null) {
-      error = '';
-      isLoading = false;
-      Navigator.of(context).pop();
-    } else {
-      setState(() {
-        isLoading = false;
-        error = 'Invalid Credentials, Try again';
-      });
-      print('Error signing in the user');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return isLoading
@@ -108,31 +87,53 @@ class _RegisterFormState extends State<RegisterForm> {
                     },
                   ),
                   ElevatedButton(
+                    style: ButtonStyle(
+                      foregroundColor: MaterialStateColor.resolveWith(
+                          (Set<MaterialState> states) {
+                        return states.contains(MaterialState.disabled)
+                            ? null
+                            : Colors.white;
+                      }),
+                      backgroundColor: MaterialStateColor.resolveWith(
+                          (Set<MaterialState> states) {
+                        return states.contains(MaterialState.disabled)
+                            ? null
+                            : Colors.blue;
+                      }),
+                    ),
                     child: Text(
                       'Register',
                       style: TextStyle(color: Colors.white),
                     ),
-                    onPressed: () async {
-                      if (password == confirmPassword) {
-                        setState(() => isLoading = true);
-                        dynamic result =
-                            await _auth.registerWithEmailAndPassword(
-                          email,
-                          password,
-                        );
-                        if (result == null) {
-                          setState(
-                            () {
-                              isLoading = false;
-                              error = 'email already in use';
-                            },
-                          );
-                        } else {
-                          Navigator.of(context).pop();
-                        }
-                      } else
-                        error = 'password does not match';
+                    onPressed: _formProgress == 1
+                        ? () async {
+                            if (password == confirmPassword) {
+                              setState(() => isLoading = true);
+                              dynamic result =
+                                  await _auth.registerWithEmailAndPassword(
+                                email,
+                                password,
+                              );
+                              if (result == null) {
+                                setState(
+                                  () {
+                                    isLoading = false;
+                                    error = 'email already in use';
+                                  },
+                                );
+                              } else {
+                                Navigator.of(context).pop();
+                              }
+                            } else
+                              error = 'password does not match';
+                          }
+                        : null,
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
                     },
+                    child: Text('Already have an account'),
                   ),
                   Text(
                     error,
